@@ -1,5 +1,7 @@
 const buttonEl = document.querySelectorAll(".btn-post-data-cart");
-let cartEl = document.querySelector(".cart-inner");
+let cartEl1 = document.querySelector(".cart-product-1");
+let cartEl2 = document.querySelector(".cart-product-2");
+let cartEl3 = document.querySelector(".cart-product-3");
 
 const products = [
   {
@@ -35,23 +37,34 @@ const addToCart = (id) => {
   const searchItem = cart.findIndex((val) => val.id === id);
 
   if (searchItem === -1) {
+    // if localStorage is clear
     const searchProducts = products.find((val) => val.id === id);
     cart.push(searchProducts);
-    const cartSearchIndex = cart.findIndex((val) => val.id === id);
-
-    cartToFront = `<h2>${cart[cartSearchIndex].name}, ${cart[cartSearchIndex].count}</h2>`;
-    cartEl.innerHTML = cartToFront;
+    const indexProductLocalStorage = cart.findIndex((val) => val.id === id);
+    cartToFront = `<h2>${cart[indexProductLocalStorage].name}, ${cart[indexProductLocalStorage].count}</h2>`;
   } else {
-    let sumCountProduct = cart[searchItem].count++;
+    let sumCountProduct = 1;
+    sumCountProduct += cart[searchItem].count++;
     cartToFront = `<h2>${cart[searchItem].name}, ${sumCountProduct}</h2>`;
-    cartEl.innerHTML = cartToFront;
   }
+
   setToCart(cart);
+};
+
+const renderCart = (id) => {
+  if (id === "1") {
+    cartEl1.innerHTML = cartToFront;
+  } else if (id === "2") {
+    cartEl2.innerHTML = cartToFront;
+  } else if (id === "3") {
+    cartEl3.innerHTML = cartToFront;
+  }
 };
 
 buttonEl.forEach((el) => {
   el.addEventListener("click", (ev) => {
     const { id } = ev.target.dataset;
     addToCart(id);
+    renderCart(id);
   });
 });
