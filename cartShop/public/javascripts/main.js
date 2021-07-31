@@ -1,7 +1,6 @@
 const buttonEl = document.querySelectorAll(".btn-post-data-cart");
-let cartEl1 = document.querySelector(".cart-product-1");
-let cartEl2 = document.querySelector(".cart-product-2");
-let cartEl3 = document.querySelector(".cart-product-3");
+let cartEl = document.querySelector(".cart-product");
+let cart = document.querySelector(".cart");
 
 const products = [
   {
@@ -18,7 +17,8 @@ const products = [
     price: "19392",
   },
 ];
-cartToFront = "";
+
+let sumCountProduct = 1;
 
 const setToCart = (cart) => {
   const resetCart = JSON.stringify(cart);
@@ -40,29 +40,48 @@ const addToCart = (id) => {
     // if localStorage is clear
     const searchProducts = products.find((val) => val.id === id);
     cart.push(searchProducts);
-    const indexProductLocalStorage = cart.findIndex((val) => val.id === id);
-    cartToFront = `<h2>${cart[indexProductLocalStorage].name}, ${cart[indexProductLocalStorage].count}</h2>`;
   } else {
-    let sumCountProduct = 1;
     sumCountProduct += cart[searchItem].count++;
-    cartToFront = `<h2>${cart[searchItem].name}, ${sumCountProduct}</h2>`;
   }
 
   setToCart(cart);
 };
 
-const renderCart = (id) => {
-  if (id === "1") {
-    cartEl1.innerHTML = cartToFront;
-  } else if (id === "2") {
-    cartEl2.innerHTML = cartToFront;
-  } else if (id === "3") {
-    cartEl3.innerHTML = cartToFront;
+const renderCart = () => {
+  const cart = getCartItem();
+  let cartToFront = "";
+  for (let item of cart) {
+    cartToFront += `<h2 class='id-product-${item.id}'>${item.name}, ${item.count}</h2> <button class='btn-increment' data-id=${item.id}> + </button> <button class='btn-decrement' data-id=${item.id}> - </button>`;
   }
+  cartEl.innerHTML = cartToFront;
+  const btnIncrementEl = document.querySelectorAll(".btn-increment");
+  const btnDecrementEl = document.querySelectorAll(".btn-decrement");
+
+  btnIncrementEl.forEach((el) => {
+    el.addEventListener("click", (ev) => {
+      const { id } = ev.target.dataset;
+
+      const findIndexCart = cart.findIndex((val) => val.id === id);
+      cart[findIndexCart].count++;
+      setToCart(cart);
+      renderCart();
+    });
+  });
+  btnDecrementEl.forEach((el) => {
+    el.addEventListener("click", (ev) => {
+      const { id } = ev.target.dataset;
+
+      const findIndexCart = cart.findIndex((val) => val.id === id);
+      cart[findIndexCart].count--;
+      setToCart(cart);
+      renderCart();
+    });
+  });
 };
 
 buttonEl.forEach((el) => {
   el.addEventListener("click", (ev) => {
+    cart.style.display = "block";
     const { id } = ev.target.dataset;
     addToCart(id);
     renderCart(id);
