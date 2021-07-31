@@ -1,4 +1,5 @@
 const buttonEl = document.querySelectorAll(".btn-post-data-cart");
+const btnPayEl = document.querySelector(".btn-to-pay");
 let cartEl = document.querySelector(".cart-product");
 let cart = document.querySelector(".cart");
 
@@ -86,4 +87,9 @@ buttonEl.forEach((el) => {
     addToCart(id);
     renderCart(id);
   });
+});
+
+btnPayEl.addEventListener("click", async (ev) => {
+  const cart = getCartItem();
+  const data = await axios.post("/pay/storage", cart);
 });

@@ -22,6 +22,7 @@ server.use(express.static(path.join(__dirname, "public")));
 
 server.use("/", indexRouter);
 server.use("/pay", payRouter);
+server.use("/pay/storage", payRouter);
 server.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
