@@ -6,6 +6,10 @@ let cartEl2 = document.querySelector(".cart-product2");
 let cartEl3 = document.querySelector(".cart-product3");
 let cart = document.querySelector(".cart");
 
+const btnIncrementEl = document.querySelectorAll("#btn-increment");
+const btnDecrementEl = document.querySelectorAll("#btn-decrement");
+const btnDeleteItemEl = document.querySelectorAll("#btn-delete");
+
 const products = [
   {
     id: "1",
@@ -59,7 +63,7 @@ const renderCart = (id) => {
   const cart = getCartItem(id);
   let cartToFront = "";
   for (let item of cart) {
-    cartToFront = `<h2 class='id-product-${item.id}'>${item.name}, ${item.count}</h2> <button class='btn-increment' data-id=${item.id}> + </button> <button class='btn-decrement' data-id=${item.id}> - </button> </button> <button class='btn-delete' data-id=${item.id}> Delete </button>`;
+    cartToFront = `<h2 class='id-product-${item.id}'>${item.name}, ${item.count}</h2> <button id='btn-increment' data-id=${item.id}> + </button> <button id='btn-decrement' data-id=${item.id}> - </button> </button> <button id='btn-delete' data-id=${item.id}> Delete </button>`;
   }
   if (id === "1") {
     cartEl1.innerHTML = cartToFront;
@@ -68,40 +72,48 @@ const renderCart = (id) => {
   } else if (id === "3") {
     cartEl3.innerHTML = cartToFront;
   }
+};
 
-  // cartEl.innerHTML = cartToFront;
+const counterProducts = (id) => {
+  const cart = getCartItem(id);
 
-  const btnIncrementEl = document.querySelectorAll(".btn-increment");
-  const btnDecrementEl = document.querySelectorAll(".btn-decrement");
-  const btnDeleteItemEl = document.querySelectorAll(".btn-delete");
-
-  btnIncrementEl.forEach((el) => {
-    el.addEventListener("click", (ev) => {
+  document.addEventListener("click", (ev) => {
+    if (ev.target && ev.target.id === "btn-increment") {
       const { id } = ev.target.dataset;
-
       const findIndexCart = cart.findIndex((val) => val.id === id);
+      console.log(cart[findIndexCart].count);
       cart[findIndexCart].count++;
       setToCart(cart, id);
       renderCart(id);
-    });
+    }
   });
-  btnDecrementEl.forEach((el) => {
-    el.addEventListener("click", (ev) => {
-      const { id } = ev.target.dataset;
 
+  document.addEventListener("click", (ev) => {
+    if (ev.target && ev.target.id === "btn-decrement") {
+      const { id } = ev.target.dataset;
       const findIndexCart = cart.findIndex((val) => val.id === id);
+      console.log(cart[findIndexCart].count);
       cart[findIndexCart].count--;
       setToCart(cart, id);
       renderCart(id);
-    });
+    }
   });
-  btnDeleteItemEl.forEach((el) => {
-    el.addEventListener("click", (ev) => {
+  document.addEventListener("click", (ev) => {
+    if (ev.target && ev.target.id === "btn-delete") {
       const { id } = ev.target.dataset;
       removeItemCart(id);
       renderCart(id);
-    });
+    }
   });
+};
+const counterProductsInc = (id) => {};
+
+const counterProductsDec = (id) => {
+  const cart = getCartItem(id);
+};
+
+const counterProductsDelete = (id) => {
+  const cart = getCartItem(id);
 };
 
 // const counterProducts = () => {};
@@ -112,7 +124,8 @@ buttonEl.forEach((el) => {
     const { id } = ev.target.dataset;
     addToCart(id);
     renderCart(id);
-    // counterProducts();
+    counterProducts(id);
+    console.log(id);
   });
 });
 
