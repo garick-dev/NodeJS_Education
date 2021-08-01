@@ -1,6 +1,9 @@
 const buttonEl = document.querySelectorAll(".btn-post-data-cart");
 const btnPayEl = document.querySelector(".btn-to-pay");
-let cartEl = document.querySelector(".cart-product");
+// let cartEl = document.querySelector(".cart-product");
+let cartEl1 = document.querySelector(".cart-product1");
+let cartEl2 = document.querySelector(".cart-product2");
+let cartEl3 = document.querySelector(".cart-product3");
 let cart = document.querySelector(".cart");
 
 const products = [
@@ -21,19 +24,23 @@ const products = [
 
 let sumCountProduct = 1;
 
-const setToCart = (cart) => {
-  const resetCart = JSON.stringify(cart);
-  localStorage.setItem("cart", resetCart);
+const setToCart = (cart, id) => {
+  const itemCartString = JSON.stringify(cart);
+  localStorage.setItem(id, itemCartString);
 };
 
-const getCartItem = () => {
-  const cartItem = localStorage.getItem("cart") || "[]";
-  const getCartItem = JSON.parse(cartItem);
-  return getCartItem;
+const getCartItem = (id) => {
+  const cartItem = localStorage.getItem(id) || "[]";
+  const itemCartObject = JSON.parse(cartItem);
+  return itemCartObject;
+};
+
+const removeItemCart = (id) => {
+  localStorage.removeItem(id);
 };
 
 const addToCart = (id) => {
-  const cart = getCartItem();
+  const cart = getCartItem(id);
 
   const searchItem = cart.findIndex((val) => val.id === id);
 
@@ -45,18 +52,28 @@ const addToCart = (id) => {
     sumCountProduct += cart[searchItem].count++;
   }
 
-  setToCart(cart);
+  setToCart(cart, id);
 };
 
-const renderCart = () => {
-  const cart = getCartItem();
+const renderCart = (id) => {
+  const cart = getCartItem(id);
   let cartToFront = "";
   for (let item of cart) {
-    cartToFront += `<h2 class='id-product-${item.id}'>${item.name}, ${item.count}</h2> <button class='btn-increment' data-id=${item.id}> + </button> <button class='btn-decrement' data-id=${item.id}> - </button>`;
+    cartToFront = `<h2 class='id-product-${item.id}'>${item.name}, ${item.count}</h2> <button class='btn-increment' data-id=${item.id}> + </button> <button class='btn-decrement' data-id=${item.id}> - </button> </button> <button class='btn-delete' data-id=${item.id}> Delete </button>`;
   }
-  cartEl.innerHTML = cartToFront;
+  if (id === "1") {
+    cartEl1.innerHTML = cartToFront;
+  } else if (id === "2") {
+    cartEl2.innerHTML = cartToFront;
+  } else if (id === "3") {
+    cartEl3.innerHTML = cartToFront;
+  }
+
+  // cartEl.innerHTML = cartToFront;
+
   const btnIncrementEl = document.querySelectorAll(".btn-increment");
   const btnDecrementEl = document.querySelectorAll(".btn-decrement");
+  const btnDeleteItemEl = document.querySelectorAll(".btn-delete");
 
   btnIncrementEl.forEach((el) => {
     el.addEventListener("click", (ev) => {
@@ -64,8 +81,8 @@ const renderCart = () => {
 
       const findIndexCart = cart.findIndex((val) => val.id === id);
       cart[findIndexCart].count++;
-      setToCart(cart);
-      renderCart();
+      setToCart(cart, id);
+      renderCart(id);
     });
   });
   btnDecrementEl.forEach((el) => {
@@ -74,11 +91,20 @@ const renderCart = () => {
 
       const findIndexCart = cart.findIndex((val) => val.id === id);
       cart[findIndexCart].count--;
-      setToCart(cart);
-      renderCart();
+      setToCart(cart, id);
+      renderCart(id);
+    });
+  });
+  btnDeleteItemEl.forEach((el) => {
+    el.addEventListener("click", (ev) => {
+      const { id } = ev.target.dataset;
+      removeItemCart(id);
+      renderCart(id);
     });
   });
 };
+
+// const counterProducts = () => {};
 
 buttonEl.forEach((el) => {
   el.addEventListener("click", (ev) => {
@@ -86,6 +112,7 @@ buttonEl.forEach((el) => {
     const { id } = ev.target.dataset;
     addToCart(id);
     renderCart(id);
+    // counterProducts();
   });
 });
 
