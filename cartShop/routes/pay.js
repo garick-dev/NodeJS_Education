@@ -10,10 +10,11 @@ const upload = multer();
 router.get("/", function (req, res, next) {
   res.render("payPage");
 });
-router.post("/storage", function (req, res, next) {
-  const storageCart = req.body;
-  console.log(storageCart);
-});
+
+// router.post("/storage", function (req, res, next) {
+//   const storageCart = req.body;
+//   console.log(storageCart);
+// });
 router.post("/", upload.none(), (req, res) => {
   const schema = {
     type: "object",
