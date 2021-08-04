@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const WebSocket = require("ws");
+const { match } = require("assert");
 
 // HTTP SERVER
 const sendFile = (res, filePath, contentType) => {
@@ -16,6 +17,7 @@ const sendFile = (res, filePath, contentType) => {
 };
 
 const httpServer = http.createServer((req, res) => {
+  console.log(new Date() + " HTTP Connection");
   if (req.url === "/") {
     sendFile(res, "/public/index.html", "text/html");
     return;
@@ -32,6 +34,17 @@ httpServer.listen(3000);
 
 const wss = new WebSocket.Server({ server: httpServer });
 
-wss.on("connection", (ws) => {
-  console.log(new Date() + " new connection WS");
+wss.on("connection", (socket) => {
+  console.log(new Date() + " New connection WS");
+
+  let sum = 0;
+  socket.on("message", (data) => {
+    sum += Number(data);
+    console.log(`Frontend send: ${data}`);
+    console.log(`Sum = ${sum}`);
+
+    if (sum > 10) {
+      socket.send(sum);
+    }
+  });
 });
