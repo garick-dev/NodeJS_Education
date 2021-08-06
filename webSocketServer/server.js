@@ -36,15 +36,9 @@ const wss = new WebSocket.Server({ server: httpServer });
 
 wss.on("connection", (socket) => {
   console.log(new Date() + " New connection WS");
-
-  let sum = 0;
+  let str = "";
   socket.on("message", (data) => {
-    sum += Number(data);
-    console.log(`Frontend send: ${data}`);
-    console.log(`Sum = ${sum}`);
-
-    if (sum > 10) {
-      socket.send(sum);
-    }
+    // str = String(data);
+    console.log(String(data));
   });
 });
