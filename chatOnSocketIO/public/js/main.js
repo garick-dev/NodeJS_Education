@@ -6,11 +6,11 @@ const msgDivEl = document.querySelector(".chat-block__content");
 formEl.addEventListener("submit", (ev) => {
   ev.preventDefault();
   const formData = new FormData(ev.target);
-
   const data = [];
   for (let value of formData.values()) {
     data.push(value);
   }
+
   socket.emit("msg", data);
 });
 

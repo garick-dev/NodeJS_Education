@@ -35,11 +35,10 @@ server.listen(3000);
 // WEBSocket SERVER
 
 io.on("connection", (socket) => {
-  console.log("WEB SOCKET CONNECTION");
+  console.log("New connection");
 
   socket.on("msg", (data) => {
-    console.log(data);
-    socket.emit("msgToFront", data);
+    io.emit("msgToFront", data);
   });
 
   socket.on("disconnect", () => {
