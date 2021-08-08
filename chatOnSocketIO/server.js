@@ -40,6 +40,9 @@ io.on("connection", (socket) => {
   socket.on("msg", (data) => {
     io.emit("msgToFront", data);
   });
+  socket.on("userName", (userName) => {
+    io.emit("typingName", userName);
+  });
 
   socket.on("disconnect", () => {
     console.log("Disconect");

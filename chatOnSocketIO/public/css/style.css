@@ -5,3 +5,6 @@
   background-color: rgb(118, 132, 216);
   overflow-y: scroll;
 }
+.hidden {
+  display: none;
+}
