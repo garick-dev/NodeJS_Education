@@ -1,10 +1,10 @@
 const moment = require("moment");
 
-let a = moment();
+let mom = moment();
 let b = moment([1997, 01, 07]);
 
-let years = a.diff(b, "years");
+let years = mom.diff(b, "years");
 // let months = moment().add(years).moment().a.diff(b, "month");
-// let days = years + months + (a.diff(b, "days"));
+// let days = years + months + a.diff(b, "days");
 
-console.log(months);
+console.log(years);

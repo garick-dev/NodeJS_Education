@@ -31,26 +31,47 @@ let resultTyping = "";
 socket.on("typingName", (userName) => {
   const inputUserNameEl = document.querySelector(".user-name");
   let newUserName = inputUserNameEl.value;
-  const userNameEl = document.querySelector(`.${userName}`);
-  if (userNameEl === null && userName !== newUserName) {
+  let getUserNameClassEl = document.querySelector(`.${userName}`);
+  if (getUserNameClassEl === null && userName !== newUserName) {
     resultTyping += `<h3 class="${userName}"> ${userName} typing... </h3>`;
     typingDivEl.innerHTML = resultTyping;
-    console.log("Условие 1");
   }
   showTyping(userName);
 });
 
 let timer = null;
+// let timer2 = null;
 
 const showTyping = (userName) => {
   const userNameEl = document.querySelectorAll("h3");
-  console.log(userNameEl);
   const arrUserName = Array.prototype.slice.call(userNameEl);
-  console.log(arrUserName);
+  let getUserNameClassEl = document.querySelector(`.${userName}`);
   for (let i = 0; i <= arrUserName.length - 1; i++) {
-    console.log(arrUserName[i]);
+    if (
+      arrUserName[i].classList.contains("hidden") === false ||
+      getUserNameClassEl === null
+    ) {
+      clearTimeout(timer);
+      timer = setTimeout(() => arrUserName[i].classList.add("hidden"), 3000);
+      console.log("ADD");
+    } else {
+      if (getUserNameClassEl.classList.contains("hidden") === true) {
+        getUserNameClassEl.classList.remove("hidden");
+        console.log("REMOVE");
+      }
+    }
   }
-  // userNameEl.classList.remove("hidden");
-  clearTimeout(timer);
-  timer = setTimeout(() => {}, 3000);
 };
+
+// clearTimeout(timer);
+// timer = setTimeout(() => {}, 2000);
+
+// clearTimeout(timer);
+// // timer = setTimeout(() => {
+// for (let i = 0; i <= arrUserName.length - 1; i++) {
+//   if (arrUserName[i].classList.contains("hidden") == false) {
+//     // clearTimeout(timer2);
+//     timer = setTimeout(() => arrUserName[i].classList.add("hidden"), 3000);
+
+//   }
+// }
