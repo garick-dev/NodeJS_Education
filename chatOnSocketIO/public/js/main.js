@@ -33,29 +33,19 @@ socket.on("typingName", (userName) => {
   let resultTyping = "";
   if (getUserNameClassEl === null && userName !== newUserName) {
     resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
-    typingDivEl.innerHTML += resultTyping;
+    typingDivEl.insertAdjacentHTML("beforeend", resultTyping);
   }
-  showTyping(userName);
-});
 
-let timer = null;
-
-const showTyping = (userName) => {
-  let getUserNameClassEl = document.querySelector(`.${userName}`);
-
-  if (getUserNameClassEl === null) {
-    return;
-  }
-  if (getUserNameClassEl.classList.contains("hidden") === false) {
-    clearTimeout(timer);
-    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
-    console.log("ADD");
-    return;
-  } else {
-    console.log("REMOVE");
+  let timer = null;
+  const showTyping = (userName) => {
+    let getUserNameClassEl = document.querySelector(`.${userName}`);
+    if (getUserNameClassEl === null) {
+      return;
+    }
+    console.log(getUserNameClassEl);
     getUserNameClassEl.classList.remove("hidden");
     clearTimeout(timer);
-    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
-    console.log("ADD IN REMOVE");
-  }
-};
+    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 2000);
+  };
+  showTyping(userName);
+});
