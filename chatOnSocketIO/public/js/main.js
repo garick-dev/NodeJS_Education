@@ -26,52 +26,36 @@ inputMsgEl.addEventListener("keypress", (ev) => {
   socket.emit("userName", userName);
 });
 
-let resultTyping = "";
-
 socket.on("typingName", (userName) => {
   const inputUserNameEl = document.querySelector(".user-name");
   let newUserName = inputUserNameEl.value;
   let getUserNameClassEl = document.querySelector(`.${userName}`);
+  let resultTyping = "";
   if (getUserNameClassEl === null && userName !== newUserName) {
-    resultTyping += `<h3 class="${userName}"> ${userName} typing... </h3>`;
-    typingDivEl.innerHTML = resultTyping;
+    resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
+    typingDivEl.innerHTML += resultTyping;
   }
   showTyping(userName);
 });
 
 let timer = null;
-// let timer2 = null;
 
 const showTyping = (userName) => {
-  const userNameEl = document.querySelectorAll("h3");
-  const arrUserName = Array.prototype.slice.call(userNameEl);
   let getUserNameClassEl = document.querySelector(`.${userName}`);
-  for (let i = 0; i <= arrUserName.length - 1; i++) {
-    if (
-      arrUserName[i].classList.contains("hidden") === false ||
-      getUserNameClassEl === null
-    ) {
-      clearTimeout(timer);
-      timer = setTimeout(() => arrUserName[i].classList.add("hidden"), 3000);
-      console.log("ADD");
-    } else {
-      if (getUserNameClassEl.classList.contains("hidden") === true) {
-        getUserNameClassEl.classList.remove("hidden");
-        console.log("REMOVE");
-      }
-    }
+
+  if (getUserNameClassEl === null) {
+    return;
+  }
+  if (getUserNameClassEl.classList.contains("hidden") === false) {
+    clearTimeout(timer);
+    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
+    console.log("ADD");
+    return;
+  } else {
+    console.log("REMOVE");
+    getUserNameClassEl.classList.remove("hidden");
+    clearTimeout(timer);
+    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
+    console.log("ADD IN REMOVE");
   }
 };
-
-// clearTimeout(timer);
-// timer = setTimeout(() => {}, 2000);
-
-// clearTimeout(timer);
-// // timer = setTimeout(() => {
-// for (let i = 0; i <= arrUserName.length - 1; i++) {
-//   if (arrUserName[i].classList.contains("hidden") == false) {
-//     // clearTimeout(timer2);
-//     timer = setTimeout(() => arrUserName[i].classList.add("hidden"), 3000);
-
-//   }
-// }
