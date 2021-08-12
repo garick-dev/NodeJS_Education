@@ -16,8 +16,11 @@ formEl.addEventListener("submit", (ev) => {
 });
 
 socket.on("msgToFront", (msg) => {
+  const chatEl = document.querySelector(".chat-block");
   let textResult = `<div class="content-message"> <span class="user-name">${msg[0]}</span>  <span class="text-message">${msg[1]}</span></div>`;
-  msgDivEl.innerHTML += textResult;
+  msgDivEl.insertAdjacentHTML("beforeend", textResult);
+  chatEl.scrollTo(0, chatEl.scrollHeight);
+  inputMsgEl.value = "";
 });
 
 inputMsgEl.addEventListener("keypress", (ev) => {
@@ -25,6 +28,8 @@ inputMsgEl.addEventListener("keypress", (ev) => {
   const userName = inputUserNameEl.value;
   socket.emit("userName", userName);
 });
+
+let timer = null;
 
 socket.on("typingName", (userName) => {
   const inputUserNameEl = document.querySelector(".user-name");
@@ -35,17 +40,15 @@ socket.on("typingName", (userName) => {
     resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
     typingDivEl.insertAdjacentHTML("beforeend", resultTyping);
   }
-
-  let timer = null;
   const showTyping = (userName) => {
-    let getUserNameClassEl = document.querySelector(`.${userName}`);
+    const getUserNameClassEl = document.querySelector(`.${userName}`);
     if (getUserNameClassEl === null) {
       return;
     }
     console.log(getUserNameClassEl);
     getUserNameClassEl.classList.remove("hidden");
     clearTimeout(timer);
-    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 2000);
+    timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
   };
   showTyping(userName);
 });
