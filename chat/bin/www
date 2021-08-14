@@ -8,6 +8,7 @@ const app = require("../server");
 const debug = require("debug")("chat:server");
 const http = require("http");
 const sio = require("socket.io");
+const chatCtrl = require("../controllers/chat");
 
 /**
  * Get port from environment and store in Express.
@@ -37,9 +38,17 @@ const io = sio(server);
 io.on("connection", (socket) => {
   console.log("New connection");
 
-  socket.on("msg", (data) => {
-    io.emit("msgToFront", data);
+  socket.on("login", (data, cb) => {
+    const { name } = data;
+    const { login } = chatCtrl;
+    const id = login(name, socket.id);
+    cb(id);
   });
+
+  socket.on("msg", (data) => {
+    io.emit("msgToFront", data.name, data.text);
+  });
+
   socket.on("userName", (userName) => {
     io.emit("typingName", userName);
   });

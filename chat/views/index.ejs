@@ -3,15 +3,23 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/style.css" />
+    <script
+      src="https://unpkg.com/uniqolor/dist/uniqolor.min.js"
+      type="text/javascript"
+    ></script>
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <form action="" name="chatForm">
+    <form class="login" name="loginForm">
       <input class="user-name" type="text" name="first-name" />
-      <input class="msg" type="text" name="msg" />
-      <button>Send</button>
+      <button type="submit">Enter chat</button>
     </form>
-    <div class="chat-block">
+
+    <form class="chat hidden" name="chatForm">
+      <input class="msg" type="text" name="msg" />
+      <button type="submit">Send</button>
+    </form>
+    <div class="chat-block hidden">
       <div class="chat-block__typing"></div>
       <div class="chat-block__info">Чат:</div>
       <div class="chat-block__content"></div>
