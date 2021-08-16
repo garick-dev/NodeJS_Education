@@ -42,11 +42,15 @@ io.on("connection", (socket) => {
     const { name } = data;
     const { login } = chatCtrl;
     const id = login(name, socket.id);
+    // console.log("Your id = ", id);
     cb(id);
   });
 
   socket.on("msg", (data) => {
-    io.emit("msgToFront", data.name, data.text);
+    const { findUserSid } = chatCtrl;
+    const currentUser = findUserSid(socket.id);
+    // console.log("Current user = ", currentUser);
+    io.emit("msgToFront", currentUser.id, currentUser.profile, data.text);
   });
 
   socket.on("userName", (userName) => {
