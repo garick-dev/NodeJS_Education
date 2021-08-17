@@ -34,26 +34,29 @@ const messagePost = () => {
   });
 };
 
-const user = [];
+// let user = {
+//   uid: null,
+//   name: null,
+//   color: null,
+// };
 const colors = [];
+
 const insertMessageToChat = () => {
   const msgDivEl = document.querySelector(".chat-block__content");
   socket.on("msgToFront", (id, login, text) => {
-    const color = uniqolor.random().color;
-    const findUser = colors.find((val) => val.id === id);
-    if (!findUser) {
-      console.log("One");
-      user.id = id;
-      user.name = login;
-      user.color = color;
-      console.log("user", user);
-      colors.push(user);
-      console.log("colors", colors);
-    } else {
-      console.log("Second");
-    }
+    const findUser = colors.find((val) => val.uid === id);
+    if (findUser === undefined) {
+      const color = uniqolor.random().color;
+      const user = {
+        uid: id,
+        name: login,
+        color: color,
+      };
 
-    let textResult = `<div class="content-message" style="color: ${user.color}">${login} ${text} </div>`;
+      colors.push(user);
+    }
+    const findUserIndex = colors.findIndex((val) => val.uid === id);
+    let textResult = `<div class="content-message" style="color: ${colors[findUserIndex].color}">${login} ${text} </div>`;
     msgDivEl.insertAdjacentHTML("beforeend", textResult);
     chatEl.scrollTo(0, chatEl.scrollHeight);
     inputMsgEl.value = "";
