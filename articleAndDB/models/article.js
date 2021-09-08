@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const path = require("path");
 
 const { Schema } = mongoose;
 
@@ -29,5 +30,6 @@ const generalSchema = new Schema({
     maxLength: 1000,
   },
 });
-const model = mongoose.model("article", generalSchema);
+const modelName = path.basename(__filename, ".js");
+const model = mongoose.model(modelName, generalSchema);
 module.exports = model
