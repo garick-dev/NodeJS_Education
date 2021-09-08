@@ -30,6 +30,6 @@ const generalSchema = new Schema({
     maxLength: 1000,
   },
 });
-const modelName = path.basename(__filename, ".js");
+const modelName = path.basename(__filename, '.js');
 const model = mongoose.model(modelName, generalSchema);
 module.exports = model
