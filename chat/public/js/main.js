@@ -34,11 +34,6 @@ const messagePost = () => {
   });
 };
 
-// let user = {
-//   uid: null,
-//   name: null,
-//   color: null,
-// };
 const colors = [];
 
 const insertMessageToChat = () => {
