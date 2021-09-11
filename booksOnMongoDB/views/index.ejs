@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <link rel='stylesheet' href='/style/style.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.2/axios.min.js"></script>
+  </head>
+  <body>
+<!-- GENRE     -->
+     <input class = "genre_btn" type="button" value="Добавить жанр"></input>
+    <form action="" class="genre hidden" name="formGenre">
+     <input type="text" name="name" placeholder="name">   
+     <button type="submit">Send</button>
+   </form>
+<!-- AUTHOR -->
+     <input class = "author_btn" type="button" value="Добавить автора"></input>
+    <form action="" class="author hidden" name="formAuthor">
+     <input type="text" name="name" placeholder="name">   
+     <input type="text" name="short_name" placeholder="short_name">   
+     <button type="submit">Send</button>
+   </form>
+
+<!-- BOOK -->
+     <input class = "book_btn" type="button" value="Добавить книгу"></input>
+    <form action="" class="book hidden" name="formBook">
+     <input type="text" name="name" placeholder="name">   
+     <input type="text" name="year" placeholder="year">   
+     <input type="text" name="location" placeholder="location">   
+     <input type="text" name="publisher" placeholder="publisher">     
+     <select name="author" multiple="multiple" size="1"></select>
+     <select name="genre" multiple="multiple" size="1"></select>  
+         <button type="submit">Send</button>
+   </form>
+   <script src="/js/main.js"></script>
+  </body>
+</html>
