@@ -22,12 +22,10 @@ router.get('/', async (req, res) =>  {
 
 router.get("/genre", upload.none(), async (req,res) => {
   const genre = await findGenreCtrl();
-  console.log(genre);
-   res.send(genre);
+    res.send(genre);
 });
 router.get("/author", upload.none(), async (req,res) => {
   const author = await findAuthorCtrl();
-  console.log(author);
    res.send(author);
 });
 
@@ -43,8 +41,7 @@ router.post("/authors", upload.none(), async (req,res) => {
 });
 
 router.post("/books", upload.none(), async (req,res) => {
-  console.log(req.body);
-  
+ 
    saveBookCtrl(req.body.name, req.body.year, req.body.location, req.body.publisher, req.body.author,req.body.genre)  
   });
 
