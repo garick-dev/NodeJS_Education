@@ -1,5 +1,10 @@
 const express = require('express');
 const multer = require("multer");
+const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
+
+const ajv = new Ajv();
+addFormats(ajv);
 
 // Controllers 
 
@@ -32,17 +37,90 @@ router.get("/author", upload.none(), async (req,res) => {
 
 
 router.post("/genres", upload.none(), async (req,res) => {
-  saveGenreCtrl(req.body.name);    
+  const schema = {
+    type: "object",
+    properties: {
+      "name": { type: "string", minLength: 3, maxLength: 15 },
+       },
+    additionalProperties: false,
+  };
+
+  const validator = ajv.compile(schema);
+  const valid = validator(req.body);
+  
+  if (!valid) {
+    res.json({
+      status: "Invalid data",
+      result: validator.errors,
+    });
+  } else {   
+    const result = await saveGenreCtrl(req.body.name);
+      res.json({
+      status: result.status,
+      result: req.body,
+    });
+  }
+   
 });
 
 
 router.post("/authors", upload.none(), async (req,res) => {
-  saveAuthorCtrl(req.body.name,req.body.short_name)  
+  const schema = {    
+    type: "object",
+    properties: {
+      "name": { type: "string", minLength: 3, maxLength: 150 },
+      "short_name": { type: "string", minLength: 3, maxLength: 25 },
+      },
+    additionalProperties: false,
+  };
+
+  const validator = ajv.compile(schema);
+  const valid = validator(req.body);
+ 
+  if (!valid) {
+    res.json({
+      status: "Invalid data",
+      result: validator.errors,
+    });
+  } else {
+    const result = await saveAuthorCtrl(req.body.name,req.body.short_name)  
+    res.json({
+      status: result.status,
+      result: req.body,
+    });
+  }
 });
 
 router.post("/books", upload.none(), async (req,res) => {
- 
-   saveBookCtrl(req.body.name, req.body.year, req.body.location, req.body.publisher, req.body.author,req.body.genre)  
+  const schema = {    
+    type: "object",
+    properties: {
+      "name": { type: "string", minLength: 5, maxLength: 150 },
+      "year": { type: "string", format: "date"},
+      "location": { type: "string", minLength: 5, maxLength: 125 },
+      "publisher": { type: "string", minLength: 5, maxLength: 125 },
+        },
+    additionalProperties: true,
+  };
+
+  const validator = ajv.compile(schema);
+  const valid = validator(req.body);
+
+  if (!valid) {
+    res.json({
+      status: "Invalid data",
+      result: validator.errors,
+    });
+  } else {
+    const result = await 
+    saveBookCtrl(req.body.name, req.body.year, req.body.location, req.body.publisher, req.body.author,req.body.genre)   
+    res.json({
+      status: result.status,
+      result: req.body,
+    });
+  }
+
+
   });
 
 module.exports = router;

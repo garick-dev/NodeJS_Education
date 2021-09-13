@@ -10,8 +10,8 @@ const bookBtnEl = document.querySelector(".book_btn");
 const authorListEl = document.querySelector("select[name=author]");
 const genreListEl = document.querySelector("select[name=genre]");
 
-let dataAuthor;
-let dataGenre;
+
+
 
 genreBtnEl.addEventListener("click", (ev) => {
     ev.preventDefault();
@@ -21,9 +21,15 @@ genreBtnEl.addEventListener("click", (ev) => {
 formGenreEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    getDataToOptionGenreEnd();
     const { data } = await axios.post("/genres", formData);
-      
+    if (data.status != "Invalid data") {
+        getDataToOptionGenreEnd();
+        return;
+    }
+    else {
+        console.log("Invalid data");
+        return;
+    }
 });
 
 authorBtnEl.addEventListener("click", (ev) => {
@@ -34,19 +40,27 @@ authorBtnEl.addEventListener("click", (ev) => {
 formAuthorEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    getDataToOptionAuthorEnd();
     const { data } = await axios.post("/authors", formData);
+    if (data.status != "Invalid data") {
+        getDataToOptionAuthorEnd();
+        return;
+    }
+    else {
+        console.log("Invalid data");
+        return;
+    }
+    
 });
 
 // Create option
 
-
-
 const getDataToOptionGenre = async () => {
-    
+    let dataGenre = "";
+    let resultGenre = "";
      dataGenre = await axios.get("genre");
    
-       for (let i = 0; i < dataGenre.data.length; i++) {  
+       for (let i = 0; i < dataGenre.data.length; i++) { 
+       
         resultGenre =`<option value="${dataGenre.data[i]._id}">${dataGenre.data[i].name}</option>`;        
         genreListEl.insertAdjacentHTML("beforeend", resultGenre);
     }
@@ -54,22 +68,25 @@ const getDataToOptionGenre = async () => {
 
 
 const getDataToOptionGenreEnd = async () => {
+    let dataGenre = "";
     let resultGenre = "";
     dataGenre = await axios.get("genre");   
-       for (let i = 0; i < dataGenre.data.length; i++) {  
-        resultGenre =`<option value="${dataGenre.data[i]._id}">${dataGenre.data[i].name}</option>`;        
-    }
+       for (let i = 0; i < dataGenre.data.length; i++) {
+        resultGenre =`<option value="${dataGenre.data[i]._id}">${dataGenre.data[i].name}</option>`;                
+       }
     genreListEl.insertAdjacentHTML("beforeend", resultGenre);
 }
 const getDataToOptionAuthor = async () => {
-    
+    let dataAuthor = "";
+    let resultAuthor = "";
     dataAuthor = await axios.get("author");
        for (let i = 0; i < dataAuthor.data.length; i++) {    
         resultAuthor = `<option value="${dataAuthor.data[i]._id}">${dataAuthor.data[i].name}</option>`;
         authorListEl.insertAdjacentHTML("beforeend", resultAuthor);
-       }
+    }
 }
 const getDataToOptionAuthorEnd = async () => {
+    let dataAuthor = "";
     let resultAuthor = "";
     dataAuthor = await axios.get("author");
        for (let i = 0; i < dataAuthor.data.length; i++) {    
@@ -88,6 +105,7 @@ formBookEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);   
     const { data } = await axios.post("/books", formData);
+    console.log(data);
 });
 
 getDataToOptionGenre();

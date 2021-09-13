@@ -8,8 +8,14 @@ const createObjInDB = async (name, year, location, publisher, authors, genres) =
     book.publish.publisher = publisher;
     book.authors = authors;
     book.genres = genres;
-    const doc = await book.save();
-     console.log(doc._id);
+    try {
+        const doc = await book.save();
+        const { id } = doc;
+        return { status: "ok", result: { id }};
+    }
+    catch (err) {
+        return { status: "Invalid data"};
+    }
   }
   
   module.exports = createObjInDB;
