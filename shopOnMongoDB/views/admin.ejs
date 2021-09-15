@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adminka</title>
+    <link rel='stylesheet' href='/style/style.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.2/axios.min.js"></script>
+  </head>
+  <body>
+<!-- BRENDS     -->
+    <div class="brends">
+        <h2 class="brends__title">Добавление бренда</h2>
+
+    <form action="" class="brend" name="formBrend">
+     <input type="text" name="name" placeholder="Наименование бренда">   
+     <button type="submit">Сохранить</button>
+   </form>
+</div>
+<!-- TYPE     -->
+    <div class="type">
+        <h2 class="type__title">Добавление типа велосипеда</h2>
+        <form action="" class="type" name="formType">
+     <input type="text" name="name" placeholder="Наименование типа велосипеда">   
+     <button type="submit">Сохранить</button>
+   </form>
+</div>
+<!-- BRAKES     -->
+    <div class="color">
+        <h2 class="color__title">Добавление цвета</h2>
+        <form action="" class="color" name="formColor">
+     <input type="text" name="name" placeholder="Наименование типа тормозов">   
+     <button type="submit">Сохранить</button>
+   </form>
+</div>
+<!-- WHEELS     -->
+    <div class="wheels">
+        <h2 class="wheels__title">Добавление размера колес</h2>
+        <form action="" class="wheels" name="formWheels">
+     <input type="text" name="name" placeholder="Наименование размера колес">   
+     <button type="submit">Сохранить</button>
+   </form>
+</div>
+
+
+<!-- BIKE -->
+    <div class="bike">
+        <h2 class="bike__title">Добавление велосипеда</h2>
+     <form action="" class="bike" name="formBike">
+     <input type="text" name="name" placeholder="Наименование" value="Велосипед">   
+     <select name="brend"></select>
+     <input type="text" name="model" placeholder="Модель"> 
+     <select name="wheels"></select>
+     <input type="text" name="year" placeholder="Год выпуска">   
+     <select name="color"></select>     
+     <select name="type"></select>
+     <select name="brakes">
+       <option value="Drum">Барабанные</option>
+       <option value="Rim">Ободные</option>
+       <option value="Disk">Дисковые (механические или гидравлические)</option>
+     </select>  
+     <input type="text" name="price" placeholder="Цена">    
+     <input type="text" name="about" placeholder="Описание">    
+     <input type="text" name="img" placeholder="Ссылка на картинку"> 
+         <button type="submit">Сохранить</button>
+   </form>
+</div>
+   <script src="/js/admin.js"></script>
+  </body>
+</html>
