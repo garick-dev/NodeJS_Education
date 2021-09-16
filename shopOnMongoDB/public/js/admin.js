@@ -14,7 +14,7 @@ const wheelsListEl = document.querySelector("select[name=wheels]");
 formBrendEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    const { data } = await axios.post("/brend", formData);
+    const { data } = await axios.post("admin/brend", formData);
     if (data.status != "Invalid data") {
         getDataToOptionBrend();
         return;
@@ -27,7 +27,7 @@ formBrendEl.addEventListener("submit", async (ev) => {
 formTypeEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    const { data } = await axios.post("/type", formData);
+    const { data } = await axios.post("admin/type", formData);
     if (data.status != "Invalid data") {
         getDataToOptionType();
     
@@ -42,7 +42,7 @@ formTypeEl.addEventListener("submit", async (ev) => {
 formColorEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    const { data } = await axios.post("/color", formData);
+    const { data } = await axios.post("admin/color", formData);
     if (data.status != "Invalid data") {
         getDataToOptionColor();
     
@@ -57,7 +57,7 @@ formColorEl.addEventListener("submit", async (ev) => {
 formWheelsEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    const { data } = await axios.post("/wheels", formData);
+    const { data } = await axios.post("admin/wheels", formData);
     if (data.status != "Invalid data") {
         getDataToOptionWheels();
     
@@ -73,7 +73,7 @@ formWheelsEl.addEventListener("submit", async (ev) => {
 formBikeEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);   
-    const { data } = await axios.post("/bike", formData);
+    const { data } = await axios.post("admin/bike", formData);
     console.log(data);
 });
 
@@ -81,7 +81,7 @@ formBikeEl.addEventListener("submit", async (ev) => {
 const getDataToOptionBrend = async () => {
     let getData = "";
     let resultInner = "";
-    getData = await axios.get("/brend");
+    getData = await axios.get("admin/brend");
    
        for (let i = 0; i < getData.data.length; i++) { 
        
@@ -92,7 +92,7 @@ const getDataToOptionBrend = async () => {
 const getDataToOptionType = async () => {
     let getData = "";
     let resultInner = "";
-    getData = await axios.get("/type");
+    getData = await axios.get("admin/type");
    
        for (let i = 0; i < getData.data.length; i++) { 
        
@@ -103,7 +103,7 @@ const getDataToOptionType = async () => {
 const getDataToOptionColor = async () => {
     let getData = "";
     let resultInner = "";
-    getData = await axios.get("/color");
+    getData = await axios.get("admin/color");
    
        for (let i = 0; i < getData.data.length; i++) { 
        
@@ -114,7 +114,7 @@ const getDataToOptionColor = async () => {
 const getDataToOptionWheels = async () => {
     let getData = "";
     let resultInner = "";
-    getData = await axios.get("/wheels");
+    getData = await axios.get("admin/wheels");
    
        for (let i = 0; i < getData.data.length; i++) { 
        
