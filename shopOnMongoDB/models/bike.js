@@ -14,8 +14,7 @@ const generalSchema = new Schema({
     default: "",
     maxLength: 255,
     },
-  brand: {
-    brend: [{
+    brends: [{
       type: Schema.Types.ObjectId, ref: "brend",
       }],
     model: {
@@ -23,7 +22,7 @@ const generalSchema = new Schema({
       default: "",
       maxLength: 255,
     },
-   },
+  
   wheels: [{
     type: Schema.Types.ObjectId, ref: "wheel",
     }],
@@ -32,13 +31,13 @@ const generalSchema = new Schema({
       default: "",
       maxLength: 4,
     },  
-  color: [{
+  colors: [{
     type: Schema.Types.ObjectId, ref: "color",
     }],
-  type: [{
+  types: [{
     type: Schema.Types.ObjectId, ref: "type",
     }],
-  brakes: {
+  brake: {
     type: Schema.Types.String,
   },
   price: {

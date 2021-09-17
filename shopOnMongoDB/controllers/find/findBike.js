@@ -1,15 +1,9 @@
 const generalModel = require("../../models/bike");
 
 const findObj = async () => {
-    let arr = [];
-  
-    const find = await generalModel.find({});
     
-    for (let i = 0; i < find.length; i++) {
-        arr.push(find[i]);
-    }
-    return arr;
-
-}
+    const findBike = await generalModel.find({}).populate("types").populate("colors").populate("wheels").populate("brends");
+    return findBike;   
+ }
 
 module.exports = findObj;

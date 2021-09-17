@@ -48,6 +48,7 @@ main {
   flex-wrap: wrap;
 }
 .product {
+  width: 350px;
   margin-right: 30px;
 }
 .product img {
@@ -61,5 +62,9 @@ main {
 .product__price {
   font-size: 15px;
   font-weight: bold;
+  padding: 5px;
+}
+.product__about {
+  font-size: 14px;
   padding: 5px;
 }

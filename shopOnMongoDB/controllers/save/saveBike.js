@@ -1,15 +1,15 @@
 const generalModel = require("../../models/bike");
 
-const createObjInDB = async (name, brend, model, wheels, year, color, type, brakes, price, about, img) => {
+const createObjInDB = async (name, brend, model, wheels, year, color, type, brake, price, about, img) => {
     const bike = new generalModel;
     bike.name = name;
-    bike.brand.brend = brend;
-    bike.brand.model = model;
+    bike.brends = brend;
+    bike.model = model;
     bike.wheels = wheels;
     bike.year = year;
-    bike.color = color;
-    bike.type = type;
-    bike.breakes = brakes;
+    bike.colors = color;
+    bike.types = type;
+    bike.breake = brake;
     bike.price = price;
     bike.about = about;
     bike.image = img;

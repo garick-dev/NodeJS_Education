@@ -13,6 +13,7 @@ router.get('/admin', (req, res) =>  {
 
 router.get('/bike', async (req, res) =>  {
   const result = await findBikeCtrl();
+  console.log(result);
   res.send(result);
 }); 
 
