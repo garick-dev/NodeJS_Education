@@ -23,7 +23,7 @@ const getAndInsertBike = async () => {
         resultHtml +=  ` <div class="product">
        <img src="${imgLink}" alt="">
        <div class="product__title">${name} ${brend} ${model} ${type} ${color} ${wheel} (${year})</div>
-       <div class="product__price">Цена: ${price}</div>
+       <div class="product__price">Цена: ${price} p.</div>
        <div class="product__about">${about}</div>
      </div>
      `

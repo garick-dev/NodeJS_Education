@@ -55,6 +55,7 @@ const generalSchema = new Schema({
       default: "",
       maxLength: 500,
     },  
+    // strict: false,
 });
 const modelName = path.basename(__filename, '.js');
 const model = mongoose.model(modelName, generalSchema);

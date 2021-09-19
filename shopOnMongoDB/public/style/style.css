@@ -50,6 +50,7 @@ main {
 .product {
   width: 350px;
   margin-right: 30px;
+  margin-bottom: 20px;
 }
 .product img {
   width: 200px;
