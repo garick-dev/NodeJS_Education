@@ -1,18 +1,33 @@
 const generalModel = require("../../models/bike");
 
-const createObjInDB = async (name, brend, model, wheels, year, color, type, brake, price, about, img) => {
+const createObjInDB = async (data) => {
     const bike = new generalModel;
-    bike.name = name;
-    bike.brends = brend;
-    bike.model = model;
-    bike.wheels = wheels;
-    bike.year = year;
-    bike.colors = color;
-    bike.types = type;
-    bike.breake = brake;
-    bike.price = price;
-    bike.about = about;
-    bike.image = img;
+   
+    console.log(data);
+    const arr = [];
+    for (let key in data) {
+  
+   const prefix = key.substring(0, 5);
+    if ( prefix === "spec-") {
+        // console.log(data[key]);
+        arr.push(data[key]);
+        bike.specifications = arr;
+        // const newKey = (key.replace("spec-", ""));         
+    }
+    else {
+    bike.name = data.name;
+    bike.brends = data.brend;
+    bike.model = data.model;
+    bike.wheels = data.wheels;
+    bike.year = data.year;
+    bike.colors = data.color;
+    bike.types = data.type;
+    bike.breake = data.brakes;
+    bike.price = data.price;
+    bike.about = data.about;
+    bike.image = data.img;
+    } 
+}   
     try {
         const doc = await bike.save();
         const { id } = doc;

@@ -69,8 +69,8 @@ router.post('/wheels', upload.none(), async (req, res) =>  {
   res.json({status: result.status});
 });
 router.post('/bike', upload.none(), async (req, res) =>  {
-  console.log(req.body);
-  // const result = await saveBikeCtrl(req.body);
+  // console.log(req.body);
+  const result = await saveBikeCtrl(req.body);
   // const result = await saveBikeCtrl(req.body.name, req.body.brend, req.body.model, req.body.wheels, req.body.year, req.body.color, req.body.type, req.body.brakes, req.body.price, req.body.about, req.body.img)
   // res.json({status: result.status});
 });

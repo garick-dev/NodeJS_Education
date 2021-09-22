@@ -37,7 +37,7 @@ const generalSchema = new Schema({
   types: [{
     type: Schema.Types.ObjectId, ref: "type",
     }],
-  brake: {
+  brakes: {
     type: Schema.Types.String,
   },
   price: {
@@ -54,8 +54,12 @@ const generalSchema = new Schema({
     type: Schema.Types.String,
       default: "",
       maxLength: 500,
-    },  
-    // strict: false,
+    }, 
+  specifications: [{
+    type: Schema.Types.Mixed,
+    default: [],
+  }]
+   
 });
 const modelName = path.basename(__filename, '.js');
 const model = mongoose.model(modelName, generalSchema);

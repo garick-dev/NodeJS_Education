@@ -99,7 +99,7 @@ formSpecificationEl.addEventListener("submit", (ev) => {
     const formData = new FormData(ev.target);
     const inputName = formData.get("name");
     const name = rusToLatin(inputName);
-    const resultHtml = `<input type="text" name="${name}" placeholder="Введите ${name}">`;
+    const resultHtml = `<input type="text" name="spec-${name}" placeholder="Введите ${name}">`;
     formBikeEl.insertAdjacentHTML("beforeend", resultHtml);
 });
 
