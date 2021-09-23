@@ -7,25 +7,12 @@ const createObjInDB = async (data) => {
     const arr = [];
     for (let key in data) {
   
-   const prefix = key.substring(0, 5);
-    if ( prefix === "spec-") {
-        // console.log(data[key]);
-        arr.push(data[key]);
-        bike.specifications = arr;
-        // const newKey = (key.replace("spec-", ""));         
+    if ( key.includes("spec-")) {
+        const newKey = key.replace("spec-", "");
+        bike.specifications[newKey] = data[key];
     }
     else {
-    bike.name = data.name;
-    bike.brends = data.brend;
-    bike.model = data.model;
-    bike.wheels = data.wheels;
-    bike.year = data.year;
-    bike.colors = data.color;
-    bike.types = data.type;
-    bike.breake = data.brakes;
-    bike.price = data.price;
-    bike.about = data.about;
-    bike.image = data.img;
+    bike[key] = data[key];
     } 
 }   
     try {

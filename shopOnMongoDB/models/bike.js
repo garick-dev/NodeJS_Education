@@ -55,10 +55,10 @@ const generalSchema = new Schema({
       default: "",
       maxLength: 500,
     }, 
-  specifications: [{
+  specifications: {
     type: Schema.Types.Mixed,
-    default: [],
-  }]
+    default: {},
+  }
    
 });
 const modelName = path.basename(__filename, '.js');
