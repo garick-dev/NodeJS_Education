@@ -3,10 +3,9 @@ const generalModel = require("../../models/bike");
 const createObjInDB = async (data) => {
     const bike = new generalModel;
    
-    console.log(data);
     const arr = [];
     for (let key in data) {
-  
+        console.log(key);
     if ( key.includes("spec-")) {
         const newKey = key.replace("spec-", "");
         bike.specifications[newKey] = data[key];

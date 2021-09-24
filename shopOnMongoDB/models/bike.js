@@ -14,29 +14,29 @@ const generalSchema = new Schema({
     default: "",
     maxLength: 255,
     },
-    brends: [{
+    brends: {
       type: Schema.Types.ObjectId, ref: "brend",
-      }],
+      },
     model: {
       type: Schema.Types.String,
       default: "",
       maxLength: 255,
     },
   
-  wheels: [{
+  wheels: {
     type: Schema.Types.ObjectId, ref: "wheel",
-    }],
+    },
   year: {
     type: Schema.Types.String,
       default: "",
       maxLength: 4,
     },  
-  colors: [{
+  colors: {
     type: Schema.Types.ObjectId, ref: "color",
-    }],
-  types: [{
+    },
+  types: {
     type: Schema.Types.ObjectId, ref: "type",
-    }],
+    },
   brakes: {
     type: Schema.Types.String,
   },
@@ -58,8 +58,7 @@ const generalSchema = new Schema({
   specifications: {
     type: Schema.Types.Mixed,
     default: {},
-  }
-   
+  }   
 });
 const modelName = path.basename(__filename, '.js');
 const model = mongoose.model(modelName, generalSchema);

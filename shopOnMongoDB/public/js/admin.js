@@ -6,9 +6,9 @@ const formBikeEl = document.forms.formBike;
 const formSpecificationEl = document.forms.formSpecification;
 
 
-const brendListEl = document.querySelector("select[name=brend]");
-const typeListEl = document.querySelector("select[name=type]");
-const colorListEl = document.querySelector("select[name=color]");
+const brendListEl = document.querySelector("select[name=brends]");
+const typeListEl = document.querySelector("select[name=types]");
+const colorListEl = document.querySelector("select[name=colors]");
 const wheelsListEl = document.querySelector("select[name=wheels]");
 
 
