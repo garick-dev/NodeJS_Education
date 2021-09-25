@@ -1,3 +1,4 @@
+const formCategoryEl = document.forms.formCategory;
 const formBrendEl = document.forms.formBrend;
 const formTypeEl = document.forms.formType;
 const formColorEl = document.forms.formColor;
@@ -6,12 +7,26 @@ const formBikeEl = document.forms.formBike;
 const formSpecificationEl = document.forms.formSpecification;
 
 
+const categoryListEl = document.querySelector("select[name=categories]");
 const brendListEl = document.querySelector("select[name=brends]");
 const typeListEl = document.querySelector("select[name=types]");
 const colorListEl = document.querySelector("select[name=colors]");
 const wheelsListEl = document.querySelector("select[name=wheels]");
 
 
+formCategoryEl.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const formData = new FormData(ev.target);
+    const { data } = await axios.post("admin/category", formData);
+    if (data.status != "Invalid data") {
+        getDataToOptionCategory();
+        return;
+    }
+    else {
+        console.log("Invalid data");
+        return;
+    }
+});
 formBrendEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
@@ -111,6 +126,17 @@ formBikeEl.addEventListener("submit", async (ev) => {
 });
 
 
+const getDataToOptionCategory = async () => {
+    let getData = "";
+    let resultInner = "";
+    getData = await axios.get("admin/category"); 
+
+       for (let i = 0; i < getData.data.length; i++) { 
+       
+        resultInner +=`<option value="${getData.data[i]._id}">${getData.data[i].name}</option>`;        
+    }
+    categoryListEl.innerHTML = resultInner;
+}
 const getDataToOptionBrend = async () => {
     let getData = "";
     let resultInner = "";
@@ -156,6 +182,7 @@ const getDataToOptionWheels = async () => {
     wheelsListEl.innerHTML = resultInner;
 }
 
+getDataToOptionCategory();
 getDataToOptionBrend();
 getDataToOptionType();
 getDataToOptionColor();

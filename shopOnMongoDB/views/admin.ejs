@@ -6,6 +6,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.2/axios.min.js"></script>
   </head>
   <body>
+
+
+<!-- CATEGORY     -->
+    <div class="category">
+        <h2 class="category__title">Добавление категории</h2>
+
+    <form action="" class="category" name="formCategory">
+     <input type="text" name="name" placeholder="Наименование категории">   
+     <button type="submit">Сохранить</button>
+   </form>
+</div>
+
+
 <!-- BRENDS     -->
     <div class="brends">
         <h2 class="brends__title">Добавление бренда</h2>
@@ -51,7 +64,7 @@
 
         <h2 class="bike__title">Добавление велосипеда</h2>
      <form action="" class="bike" name="formBike">
-     <input type="text" name="name" placeholder="Наименование" value="Велосипед">   
+     <select name="categories" multiple="multiple" size="2"></select>
      <select name="brends"></select>
      <input type="text" name="model" placeholder="Модель"> 
      <select name="wheels"></select>
@@ -65,7 +78,7 @@
      </select>  
      <input type="text" name="price" placeholder="Цена">    
      <input type="text" name="about" placeholder="Описание">    
-     <input type="text" name="image" placeholder="Ссылка на картинку"> 
+     <input type="file" name="image"> 
          <button type="submit">Сохранить</button>
    </form>
 </div>

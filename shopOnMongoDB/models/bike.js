@@ -9,11 +9,9 @@ require("./wheel");
 const { Schema } = mongoose;
 
 const generalSchema = new Schema({
-  name: {
-    type: Schema.Types.String,
-    default: "",
-    maxLength: 255,
-    },
+  categories: [{
+    type: Schema.Types.ObjectId, ref: "categorie",
+    }],
     brends: {
       type: Schema.Types.ObjectId, ref: "brend",
       },

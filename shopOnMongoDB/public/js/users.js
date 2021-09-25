@@ -27,12 +27,13 @@ const latinToRus = (str) => {
 
 const getAndInsertBike = async () => {
     const { data } = await axios.get("/bike")
-    let imgLink = "";
-    let name,price,brend,model,year,type,color,wheel, about, specifications = "";
-    let resultHtml = "";
+    console.log(data);
+    let imgLink, name,price,brend,model,year,type,color,wheel, about, specifications,resultHtml = "";
     for (let item in data) {
         imgLink = data[item].image;
-        name = data[item].name;
+        for (let key in data[item].categories) {
+            name = data[item].categories[key].name; 
+     }     
         price = data[item].price;
         brend = data[item].brends.name;
         model = data[item].model;
@@ -58,7 +59,7 @@ const getAndInsertBike = async () => {
     specificationEl = document.querySelectorAll(".product__specification");
 
     specificationEl.forEach(element => {
-       if (element.innerText === "Характеристики:") {
+       if (element.innerText === "Характеристики:" || element.innerText === "Характеристики: undefined") {
         element.classList.add("hidden");
        }
     });
