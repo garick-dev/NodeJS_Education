@@ -81,7 +81,13 @@ router.post('/wheels', upload.none(), async (req, res) =>  {
   const result = await saveWheelCtrl(req.body.name)
   res.json({status: result.status});
 });
+
 router.post('/bike', upload.single("image"), async (req, res) =>  {
+  const { mimetype } = req.file;
+  if ( !(/image\/(gif|jpg|jpeg|tiff?|png|webp|bmp)/).test(mimetype) ) {
+    console.log("ERROR");
+    return;
+  }
   const { filename } = req.file;
   const { originalname } = req.file;
   fs.rename(

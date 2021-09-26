@@ -20,6 +20,7 @@ formCategoryEl.addEventListener("submit", async (ev) => {
     const { data } = await axios.post("admin/category", formData);
     if (data.status != "Invalid data") {
         getDataToOptionCategory();
+        formCategoryEl.reset();
         return;
     }
     else {
@@ -33,6 +34,7 @@ formBrendEl.addEventListener("submit", async (ev) => {
     const { data } = await axios.post("admin/brend", formData);
     if (data.status != "Invalid data") {
         getDataToOptionBrend();
+        formBrendEl.reset();
         return;
     }
     else {
@@ -46,7 +48,7 @@ formTypeEl.addEventListener("submit", async (ev) => {
     const { data } = await axios.post("admin/type", formData);
     if (data.status != "Invalid data") {
         getDataToOptionType();
-    
+        formTypeEl.reset();
         return;
     }
     else {
@@ -61,7 +63,7 @@ formColorEl.addEventListener("submit", async (ev) => {
     const { data } = await axios.post("admin/color", formData);
     if (data.status != "Invalid data") {
         getDataToOptionColor();
-    
+        formColorEl.reset();
         return;
     }
     else {
@@ -76,7 +78,7 @@ formWheelsEl.addEventListener("submit", async (ev) => {
     const { data } = await axios.post("admin/wheels", formData);
     if (data.status != "Invalid data") {
         getDataToOptionWheels();
-    
+        formWheelsEl.reset();
         return;
     }
     else {
@@ -86,34 +88,34 @@ formWheelsEl.addEventListener("submit", async (ev) => {
     
 });
 
-const rusToLatin = (str) => {
+// const rusToLatin = (str) => {
 
-	const ru = new Map([
-		['а', 'a'], ['б', 'b'], ['в', 'v'], ['г', 'g'], ['д', 'd'], ['е', 'e'],
-		['є', 'e'], ['ё', 'e'], ['ж', 'j'], ['з', 'z'], ['и', 'i'], ['ї', 'yi'], ['й', 'i'],
-		['к', 'k'], ['л', 'l'], ['м', 'm'], ['н', 'n'], ['о', 'o'], ['п', 'p'], ['р', 'r'],
-		['с', 's'], ['т', 't'], ['у', 'u'], ['ф', 'f'], ['х', 'h'], ['ц', 'c'], ['ч', 'ch'],
-		['ш', 'sh'], ['щ', 'shch'], ['ы', 'y'], ['э', 'e'], ['ю', 'u'], ['я', 'ya'],
-	]);
+// 	const ru = new Map([
+// 		['а', 'a'], ['б', 'b'], ['в', 'v'], ['г', 'g'], ['д', 'd'], ['е', 'e'],
+// 		['є', 'e'], ['ё', 'e'], ['ж', 'j'], ['з', 'z'], ['и', 'i'], ['ї', 'yi'], ['й', 'i'],
+// 		['к', 'k'], ['л', 'l'], ['м', 'm'], ['н', 'n'], ['о', 'o'], ['п', 'p'], ['р', 'r'],
+// 		['с', 's'], ['т', 't'], ['у', 'u'], ['ф', 'f'], ['х', 'h'], ['ц', 'c'], ['ч', 'ch'],
+// 		['ш', 'sh'], ['щ', 'shch'], ['ы', 'y'], ['э', 'e'], ['ю', 'u'], ['я', 'ya'],
+// 	]);
 
-	str = str.replace(/[ъь]+/g, '');
+// 	str = str.replace(/[ъь]+/g, '');
 
-	return Array.from(str)
-		.reduce((s, l) =>
-			s + (
-                 ru.get(l)
-				  || ru.get(l.toLowerCase()) === undefined && l
-				  || ru.get(l.toLowerCase())
-			  )
-			, '');
-}
+// 	return Array.from(str)
+// 		.reduce((s, l) =>
+// 			s + (
+//                  ru.get(l)
+// 				  || ru.get(l.toLowerCase()) === undefined && l
+// 				  || ru.get(l.toLowerCase())
+// 			  )
+// 			, '');
+// }
 
 
 formSpecificationEl.addEventListener("submit", (ev) => {
     ev.preventDefault();
     const formData = new FormData(ev.target);
-    const inputName = formData.get("name");
-    const name = rusToLatin(inputName);
+    const name = formData.get("name");
+    // const name = rusToLatin(inputName);
     const resultHtml = `<input type="text" name="spec-${name}" placeholder="Введите ${name}">`;
     formBikeEl.insertAdjacentHTML("beforeend", resultHtml);
 });
