@@ -3,15 +3,18 @@ const chatFormEl = document.forms.chatForm;
 const inputMsgEl = document.querySelector(".msg");
 const chatEl = document.querySelector(".chat-block");
 
-const loginPost = () => {
+const loginPost =  () => {
   const loginFormEl = document.forms.loginForm;
-  loginFormEl.addEventListener("submit", (ev) => {
+  loginFormEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    const name = document.querySelector("input[name=first-name").value;
+    const name = document.querySelector("input[name=login").value;
     if (name.length < 1) {
       alert("Введите имя");
       return;
     }
+    const formData = new FormData(ev.target);
+    const { data } = await axios.post("/login", formData);
+    console.log(data)
     socket.emit("login", { name }, (uid) => {
       // user.id = uid;
     });
@@ -24,7 +27,7 @@ const loginPost = () => {
 const messagePost = () => {
   chatFormEl.addEventListener("submit", (ev) => {
     ev.preventDefault();
-    const name = document.querySelector("input[name=first-name").value;
+    const name = document.querySelector("input[name=login").value;
     const text = document.querySelector("input[name=msg").value;
     if (text.length < 1) {
       alert("Введите сообщение");
