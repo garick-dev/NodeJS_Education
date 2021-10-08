@@ -16,7 +16,7 @@ router.get("/login", async (req, res, next) => {
   const result = await findUser();
   for (let i = 0; i < result.length; i++) {
   if (req.session.id === result[i].sessionID) {
-    res.send( { login: result[i].login, password: result[i].password } );
+    res.send( { login: result[i].login } );
     return;
   }
   else {

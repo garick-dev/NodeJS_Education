@@ -1,10 +1,25 @@
 const socket = io();
+const loginFormEl = document.forms.loginForm;
 const chatFormEl = document.forms.chatForm;
 const inputMsgEl = document.querySelector(".msg");
 const chatEl = document.querySelector(".chat-block");
 
+
+const loginGet = async () => {
+    const { data } = await axios.get("/login");
+    const name = data.login;
+    if (name.length > 1) {
+      socket.emit("login", { name }, (uid) => {
+      socket.emit("userName", name );
+      });
+      loginFormEl.classList.add("hidden");
+      chatFormEl.classList.remove("hidden");
+      chatEl.classList.remove("hidden");
+    }
+}
+
 const loginPost =  () => {
-  const loginFormEl = document.forms.loginForm;
+
   loginFormEl.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const name = document.querySelector("input[name=login").value;
@@ -14,7 +29,6 @@ const loginPost =  () => {
     }
     const formData = new FormData(ev.target);
     const { data } = await axios.post("/login", formData);
-    console.log(data)
     socket.emit("login", { name }, (uid) => {
       // user.id = uid;
     });
@@ -62,15 +76,19 @@ const insertMessageToChat = () => {
 };
 
 const loginPostForTyping = () => {
-  inputMsgEl.addEventListener("keypress", (ev) => {
-    const inputUserNameEl = document.querySelector(".user-name");
-    const userName = inputUserNameEl.value;
-    socket.emit("userName", userName);
+  inputMsgEl.addEventListener("keypress",  async (ev) => {
+    const { data } = await axios.get("/login");
+    const login = data.login;
+    if (login.length > 1 ) {
+      socket.emit("userName", login);
+    }
+ 
   });
 };
 
 const showTypingInChat = () => {
   socket.on("typingName", (userName) => {
+    console.log("USERNAME", userName);
     const typingDivEl = document.querySelector(".chat-block__typing");
 
     const inputUserNameEl = document.querySelector(".user-name");
@@ -97,6 +115,7 @@ const showTyping = (userName) => {
   timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
 };
 
+loginGet();
 loginPost();
 messagePost();
 insertMessageToChat();
