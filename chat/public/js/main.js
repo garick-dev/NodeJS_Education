@@ -35,6 +35,7 @@ const loginPost =  () => {
     loginFormEl.classList.add("hidden");
     chatFormEl.classList.remove("hidden");
     chatEl.classList.remove("hidden");
+    loginPostForTyping();
   });
 };
 
@@ -75,34 +76,28 @@ const insertMessageToChat = () => {
   });
 };
 
-const loginPostForTyping = () => {
-  inputMsgEl.addEventListener("keypress",  async (ev) => {
-    const { data } = await axios.get("/login");
+const loginPostForTyping = async () => {
+  const { data } = await axios.get("/login");
+  inputMsgEl.addEventListener("keypress",  (ev) => {
     const login = data.login;
     if (login.length > 1 ) {
       socket.emit("userName", login);
-    }
- 
+      socket.on("typingName", (userName) => {
+        const typingDivEl = document.querySelector(".chat-block__typing");
+        let getUserNameClassEl = document.querySelector(`.${userName}`);
+        let resultTyping = "";        
+        if (getUserNameClassEl === null) {    
+          resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
+          getUserNameClassEl = resultTyping;
+          typingDivEl.insertAdjacentHTML("beforeend", resultTyping);
+    
+        }   
+        showTyping(userName);
+      });
+    } 
   });
 };
 
-const showTypingInChat = () => {
-  socket.on("typingName", (userName) => {
-    console.log("USERNAME", userName);
-    const typingDivEl = document.querySelector(".chat-block__typing");
-
-    const inputUserNameEl = document.querySelector(".user-name");
-    let newUserName = inputUserNameEl.value;
-    let getUserNameClassEl = document.querySelector(`.${userName}`);
-    let resultTyping = "";
-    if (getUserNameClassEl === null && userName !== newUserName) {
-      resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
-      typingDivEl.insertAdjacentHTML("beforeend", resultTyping);
-    }
-
-    showTyping(userName);
-  });
-};
 
 const showTyping = (userName) => {
   let timer = null;
@@ -120,4 +115,3 @@ loginPost();
 messagePost();
 insertMessageToChat();
 loginPostForTyping();
-showTypingInChat();
