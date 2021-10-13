@@ -19,9 +19,6 @@ router.get("/login", async (req, res, next) => {
     res.send( { login: result[i].login } );
     return;
   }
-  else {
-    console.log("IDENTIFICATION NOT FOUND");
-  }
 }
 });
 

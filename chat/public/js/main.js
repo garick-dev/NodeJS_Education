@@ -76,38 +76,43 @@ const insertMessageToChat = () => {
   });
 };
 
+
 const loginPostForTyping = async () => {
   const { data } = await axios.get("/login");
+  let resultTyping = "";    
   inputMsgEl.addEventListener("keypress",  (ev) => {
     const login = data.login;
-    if (login.length > 1 ) {
-      socket.emit("userName", login);
+    if (login != null || login != "undefined" || login.length > 1) {
+      socket.emit("userName", login); 
       socket.on("typingName", (userName) => {
         const typingDivEl = document.querySelector(".chat-block__typing");
         let getUserNameClassEl = document.querySelector(`.${userName}`);
-        let resultTyping = "";        
+          
         if (getUserNameClassEl === null) {    
           resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
-          getUserNameClassEl = resultTyping;
-          typingDivEl.insertAdjacentHTML("beforeend", resultTyping);
-    
+          typingDivEl.insertAdjacentHTML("beforeend", resultTyping);     
         }   
-        showTyping(userName);
+        else {
+          showTyping(userName);;
+        }
       });
     } 
   });
-};
-
+}
 
 const showTyping = (userName) => {
   let timer = null;
   const getUserNameClassEl = document.querySelector(`.${userName}`);
-  if (getUserNameClassEl === null) {
+  const typingDivEl = document.querySelector(".chat-block__typing");
+
+  if (getUserNameClassEl === null ) {
     return;
   }
-  getUserNameClassEl.classList.remove("hidden");
-  clearTimeout(timer);
-  timer = setTimeout(() => getUserNameClassEl.classList.add("hidden"), 3000);
+  else {
+    clearTimeout(timer);   
+    timer = setTimeout(() => typingDivEl.removeChild(getUserNameClassEl), 3000);
+    }
+
 };
 
 loginGet();
@@ -115,3 +120,4 @@ loginPost();
 messagePost();
 insertMessageToChat();
 loginPostForTyping();
+
