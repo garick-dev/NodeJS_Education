@@ -42,13 +42,12 @@ const loginPost =  () => {
 const messagePost = () => {
   chatFormEl.addEventListener("submit", (ev) => {
     ev.preventDefault();
-    const name = document.querySelector("input[name=login").value;
     const text = document.querySelector("input[name=msg").value;
     if (text.length < 1) {
       alert("Введите сообщение");
       return;
     }
-    socket.emit("msg", { name, text });
+    socket.emit("msg", { text });
   });
 };
 
@@ -75,7 +74,6 @@ const insertMessageToChat = () => {
     inputMsgEl.value = "";
   });
 };
-
 
 const loginPostForTyping = async () => {
   const { data } = await axios.get("/login");
@@ -113,7 +111,40 @@ const showTyping = (userName) => {
     timer = setTimeout(() => typingDivEl.removeChild(getUserNameClassEl), 3000);
     }
 
-};
+};  
+
+// const loginPostForTyping = async () => {
+//   const { data } = await axios.get("/login");
+//   let resultTyping = "";    
+//   inputMsgEl.addEventListener("keypress",  (ev) => {
+//     const login = data.login;
+//     if (login != null || login != "undefined" || login.length > 1) {
+//       socket.emit("userName", login); 
+//       socket.on("typingName", (userName) => {
+//         const typingDivEl = document.querySelector(".chat-block__typing");
+//         let getUserNameClassEl = document.querySelector(`.${userName}`);
+          
+//         if (!getUserNameClassEl) {    
+//           resultTyping = `<h3 class="${userName}"> ${userName} typing... </h3>`;
+//           typingDivEl.insertAdjacentHTML("beforeend", resultTyping);     
+//         }   
+//         else {
+//           let timer = null;
+//           showTyping(userName, typingDivEl,timer);
+//         }
+//       });
+//     } 
+//   });
+// }
+
+
+// const showTyping = (userName, typingDivEl, timer) => {
+//   clearTimeout(timer); 
+//     timer = setTimeout(() => {    
+//       const getUserNameClassEl = document.querySelector(`.${userName}`);
+//       typingDivEl.removeChild(getUserNameClassEl); 
+//     }, 3000);
+// }
 
 loginGet();
 loginPost();
